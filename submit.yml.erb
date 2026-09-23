@@ -1,0 +1,17 @@
+# Job submission configuration file
+# 
+---
+batch_connect:
+  template: "basic"
+
+script:
+  email_on_started: true
+  email_on_terminated: true
+  email: <%= ENV["USER"] %>@tufts.edu
+  job_name: "OnDemand/ASR"
+  native:
+    - "--time=<%= bc_num_hours %>:00:00"
+    - "--cpus-per-task=<%= num_cores %>"
+    - "--mem=<%= num_memory %>G"
+    - "--nodes=1"
+    - "--partition=<%= partition %>"

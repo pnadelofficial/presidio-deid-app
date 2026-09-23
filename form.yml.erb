@@ -1,0 +1,42 @@
+---
+cluster: "pax"
+bc_dynamic_js: true
+
+attributes:
+  num_cores:
+    widget: "select"
+    label: "Cores"
+    options:
+      - ["2", "2"]
+      - ["4", "4"]
+      - ["8", "8"]
+      - ["12", "12"]
+      - ["16", "16"]
+    value: "8"
+
+  num_memory:
+    widget: "select"
+    label: "Memory"
+    options:
+      - ["4 GB", "4"]
+      - ["8 GB", "8"]
+      - ["16 GB", "16"]
+      - ["32 GB", "32"]
+      - ["64 GB", "64"]
+      - ["96 GB", "96"]
+    value: "32"
+
+  partition:
+    widget: "select"
+    label: "Partition"
+    help: "Jobs submitted to the preempt partition may be terminated to allow higher-priority jobs to run."
+    options:
+      - ["Preempt", "preempt"]
+      - ["Batch", "batch"]
+    value: "batch"
+
+form:
+  - bc_num_hours
+  - num_cores
+  - num_memory
+  - partition

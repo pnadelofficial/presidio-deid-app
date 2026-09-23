@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# pmn 2025
+
+start=$SECONDS
+set -e
+shopt -s expand_aliases 
+
+# Clean the environment
+module purge
+echo "Modules purged"
+
+module load singularity
+module load use.own
+module load de-id/0.0.3
+# module load ai-tools
+
+echo "Host: ${host}"
+echo "Port: ${port}"
+
+alias deid-python='singularity exec --cleanenv --nv /cluster/home/pnadel01/container-apps/images/pnadel_de-id:0.0.3.sif python'
+export TORCH_FORCE_WEIGHTS_ONLY_LOAD=0
+
+echo "Modules loaded. Beginning OCR..."
+deid-python -m streamlit run "${PWD}/run-presidio.py" --server.port "${port}" --server.address 0.0.0.0  --server.headless true  --server.baseUrlPath "/node/${host}/${port}" --browser.gatherUsageStats false --server.enableCORS false --server.enableXsrfProtection false || {
+	echo "Error: Presidio failed"
+    exit 1
+}
+
+duration=$(( SECONDS - start  ))
+duration_in_min=$(( duration/60  ))
+echo "De-ID Process finished in $duration_in_min minutes!"

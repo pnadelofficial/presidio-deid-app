@@ -1,0 +1,21 @@
+# Export the module function if it exists
+[[ $(type -t module) == "function" ]] && export -f module
+
+# Helper: find a free TCP port
+find_port() {
+  python3 - <<'EOF'
+import socket
+s = socket.socket()
+s.bind(('', 0))
+port = s.getsockname()[1]
+s.close()
+print(port)
+EOF
+}
+export -f find_port
+
+# Export compute node the script is running on
+export host="$(hostname -s)"
+
+# Hardcode port since the variable is needed but the information isn't.
+export port="$(find_port)"

@@ -1,0 +1,7 @@
+---
+name: "De-identifier (Presidio)"
+category: "Interactive Apps"
+subcategory: "AI"
+role: "batch_connect"
+description: |
+  Presidio is a data protection and de-identification application, which provides fast identification and anonymization modules for private entities in text such as credit card numbers, names, locations, social security numbers, phone numbers, financial data and more.
